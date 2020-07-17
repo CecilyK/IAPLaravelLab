@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,14 +11,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/cars', 'CarsController@allcars');
+Route::get('/car/new', 'CarsController@newcarform');
+Route::post('/car', 'CarsController@newcar');
+Route::get('/cars/{id}', 'CarsController@show')->name('cars.show');
 
-Auth::routes();
+Route::get('reviews', 'ReviewsController@index')->name('reviews.index');;
+Route::get('reviews/create/{carId}', 'ReviewsController@create')->name('reviews.create');
+Route::get('reviews/show/{id}', 'ReviewsController@show')->name('reviews.show');
+Route::post('reviews', 'ReviewsController@store');
+Route::get('reviews/cars/{id}', 'ReviewsController@cars')->name('reviews.cars');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/car','CarController@allcars');
-Route::get('/car(id)','CarController@particularcar');
-Route::post('/car','CarController@newcar');
+Route::post('/search', 'ReviewsController@search');
